@@ -1,0 +1,96 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Checkout{% endblock title %}
+{% block main-content %}
+<div class="container">
+ <div class="row mt-5">
+  <div class="col-sm-6">
+    <h4>Order Summary</h4>
+    <hr>
+    {% for item in cart_items %}
+    <div class="row">
+     
+      <div class="col-sm-3">
+     
+        <img src="{{item.product.imageURL}}" class="img-fluid" width="140px" height="140px" alt="">
+
+      </div>
+      <div class="col-sm-9">
+        <div class="card mb-2">
+          <div class="card-body">
+            <h5>Product: {{item.product.title}}</h5>
+            <p>Quantity: {{item.quantity}}</p>
+            <p >Price: {{item.total_cost|floatformat:2}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+      {% endfor %}
+      <p class="fw-bold py-3">Total Cost + Include Shipping Tk. 70 = Tk. {{totalamount|floatformat:2}} </p>
+    <small>Term and Condition: Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia, ullam saepe! Iure optio repellat dolor velit, minus rem. Facilis cumque neque numquam laboriosam, accusantium adipisci nisi nihil in et quis?</small>
+  </div>
+  <div class="col-sm-4 offset-sm-1">
+    <h4>Select Shipping Address</h4>
+    <hr>
+    <form action="/paymentdone" id="myform">
+      {% for ad in add %}
+      <div class="card">
+        <div class="card-body">
+        <h5>Name : {{ad.name}}</h5>
+        <hr>
+        <p>Phone : 0{{ad.phone}} , Locality : {{ad.locality}} , City : {{ad.city}} , Division : {{ad.division}} </p>
+        </div>
+      </div>
+        <div class="form-check mt-2 mb-5">
+          <input class="form-check-input" type="radio" name='custid' id="custadd{{forloop.counter}}" value="{{ad.id}}">
+          <label class="form-check-label fw-bold" for="">
+            Address: {{forloop.counter}} </label>
+        </div>
+        {% endfor %}
+        <div class="text-end mb-5">
+          <!-- <button type="submit" class="btn btn-warning mt-3 px-5 fw-bold">Continue</button> -->
+
+
+          <div id="paypal-button-container"></div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock main-content %}
+
+{% block payment %}
+
+<script src="https://www.paypal.com/sdk/js?client-id=AcnTseuaMPQwqwS9HqTqSB6hVrCvFrWlfc4d_kbBIsnWClY51MqqwXe1-LxpTPge_cuuy6yT_VZcaLPm&currency=USD"></script>
+
+<script>
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+
+        // Set up the transaction
+        createOrder: function(data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: '{{totalamount}}'
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function(data, actions) {
+            return actions.order.capture().then(function(details) {
+                // Show a success message to the buyer
+                alert('Transaction completed by ' + details.payer.name.given_name + '!');
+
+                document.getElementById('myform').submit();
+            });
+        }
+
+
+    }).render('#paypal-button-container');
+</script>
+
+{% endblock payment %}

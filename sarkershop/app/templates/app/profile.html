@@ -1,0 +1,36 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %}Profile{% endblock title %}
+{% block main-content %}
+<div class="container my-5">
+ <div class="row">
+  <h3 class="mb-2 text-center">Welcome <span class="text-capitalize">{{request.user}}</span></h3>
+  <hr>
+
+  {% for message in messages %}
+
+    <p class="py-3 px-5 bg-success text-center text-white mb-3">{{message}}</p>
+
+  {% endfor %} 
+
+  <div class="col-sm-2 border-end">
+   <ul class="list-unstyled">
+    <li class="d-grid"><a href="{% url 'profile' %}" class="btn {{active}}">Profile</a></li>
+    <li class="d-grid"><a href="{% url 'address' %}" class="btn">Address</a></li>
+   </ul>
+  </div>
+  <div class="col-sm-8 offset-sm-1">
+   <form action="" method="post">
+    {% csrf_token %}
+      {% for f in form %}
+        {{f.label}}<br/>
+        {{f}}<br/>
+      {% endfor %}
+      <button type="submit" class="btn btn-warning mt-3">Submit</button>
+    </div>
+    
+   </form>
+  </div>
+ </div>
+</div>
+{% endblock main-content %}

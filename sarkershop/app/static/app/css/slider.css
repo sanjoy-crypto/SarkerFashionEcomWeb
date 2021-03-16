@@ -1,0 +1,131 @@
+html,
+body {
+    position: relative;
+    height: 100%;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: montserrat, sans-serif;
+    background-color: #c4c1c1;
+    background-color: rgba(241, 241, 241, 1.00);
+}
+
+.swiper-slide {
+    width: 250px !important;
+}
+
+.slider-box {
+    margin: 20px;
+    height: 350px;
+    width: 250px;
+    position: relative;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid rgba(187, 187, 187, 0.40)
+}
+
+.slider-box a {
+    text-decoration: none;
+    align-items: center;
+}
+
+.img-box {
+    height: 170px;
+}
+
+.img-box img {
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.time {
+    position: absolute;
+    top: 0px;
+    right: 20px;
+    color: #f16007;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 13px;
+    line-height: 35px;
+}
+
+.price {
+    color: #FFFFFF;
+    background-color: #ff555b;
+    line-height: 20px;
+}
+
+.cart {
+    position: absolute;
+    bottom: 0px;
+    height: 45px;
+    background-color: #ff696e;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart a {
+    color: #FFFFFF;
+}
+
+.slider-box:hover {
+    box-shadow: 2px 2px 12px rgba(47, 47, 47, 0.40);
+}
+
+.slider-box:hover .img-box img {
+    transform: scale(1.07);
+    transition: all ease 0.3s;
+}
+
+.cart:hover {
+    transform: scale(1.1);
+    box-shadow: 2px 2px 12px rgba(47, 47, 47, 0.40);
+    transition: all ease 0.1s;
+}
+
+.heading {
+    text-align: center;
+    margin: 10px 0px;
+    /* font-size: 28px; */
+    color: white;
+    background: #ff696e;
+}
+
+
+
+
+/* <div class="swiper-container">
+    <div class="swiper-wrapper">
+      {% for b in bottomwears %}
+      <div class="swiper-slide">
+        <div class="slider-box">
+          <p class="time">New</p>
+          <div class="img-box">
+            <img src="{{b.product_image.url}}">
+          </div>
+          <p class="detail">{{b.name}}
+            <br><a class="price" href="#">Price-{{b.Selling_price|floatformat:2}} tk</a>
+          </p>
+          <div class="cart">
+            <a href="#">Add To Cart</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    </div> */
